@@ -3,10 +3,13 @@ package com.javadist.auth.WEB.controller;
 import com.javadist.auth.WEB.config.JwtTokenUtil;
 import com.javadist.auth.WEB.controller.DTO.UserDto;
 import com.javadist.auth.WEB.controller.DTO.UserWithTokenDto;
-import com.javadist.auth.infrastructure.model.User;
 import com.javadist.auth.business.service.UserService;
+import com.javadist.auth.infrastructure.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -28,9 +31,9 @@ public class AuthController {
         return userService.save(user);
     }
 
-    @PostMapping("login")
+    @PostMapping(value = "/login")
     public UserWithTokenDto login(@RequestBody UserDto request) {
-        User user = (User) userService.loadUserByUsername(request.getUsername() , request.getPassword());
-        return new UserWithTokenDto(user.getId() , user.getUsername(), jwtTokenUtil.generateToken(user));
+        User user = (User) userService.loadUserByUsername(request.getUsername(), request.getPassword());
+        return new UserWithTokenDto(user.getId(), user.getUsername(), jwtTokenUtil.generateToken(user));
     }
 }
