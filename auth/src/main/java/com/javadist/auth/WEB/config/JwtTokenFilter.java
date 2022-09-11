@@ -25,13 +25,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDao userDao;
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain)
             throws ServletException, IOException {
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        System.out.println(header);
         if (header == null || !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;
