@@ -1,11 +1,17 @@
 package com.javaDist.gateway.Services;
 
+import com.javaDist.gateway.Services.DTO.User;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "AuthService", url = "auth-service")
+import javax.ws.rs.core.HttpHeaders;
+
+@FeignClient(name = "auth-service")
 public interface AuthService {
 
-//    @RequestMapping(method = RequestMethod.GET, value = "/au/test")
-//    String getSessionId(@RequestHeader("X-Auth-Token") String token);
+    @RequestMapping(method = RequestMethod.GET, value = "/users")
+    User getUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String token);
 
 }
