@@ -45,7 +45,7 @@ public class AuthFilter extends ZuulFilter {
 
             requestContext.put(HttpHeaders.AUTHORIZATION, requestContext.getRequest().getHeader(HttpHeaders.AUTHORIZATION));
             User user = this.authService.getUser(requestContext.getRequest().getHeader(HttpHeaders.AUTHORIZATION));
-            requestContext.put("X-USER_ID", user.getId());
+            requestContext.addZuulRequestHeader("userId", user.getId().toString());
             return null;
         } catch (
                 Exception e
